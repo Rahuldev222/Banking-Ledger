@@ -3,13 +3,12 @@ const bcrypt = require("bcryptjs") // for hashing
 
 const userScema = new mongoose.Schema(
   {
-    email: {
-      type: String,
-      required: [true, "email is required to create user."],
+    email:{
+      type: String,required:[true,"email is required to create user."],
+      unique: [true, "errmmsg: email already exists"],
       trim: [true],
       lowercae: true,
       match: [/^[^@\s]+@[^@\s]+\.[^@\s]+$/, "Invalid email"],
-      unique: [true, "errmmsg: email already exists"],
     },
     name: {
       type: String,
@@ -26,16 +25,16 @@ const userScema = new mongoose.Schema(
     timestamps: true,
   },
 )
-
+// Save se pehle password hash karo
 // password hashed / benifits: if evven database bas hacked then passord not seen hasing not converted into plain text
 userScema.pre("save", async function () {
   if (!this.isModified("password")) {
-    return 
+    return ;
   }
   const hash = await bcrypt.hash(this.password, 10)
   this.password = hash
   return  
-})
+});
 
 userScema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password)

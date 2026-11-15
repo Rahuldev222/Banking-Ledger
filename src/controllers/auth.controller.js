@@ -1,5 +1,6 @@
 // API endpoint controllers
 
+const { modelNames } = require("mongoose");
 const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
@@ -48,27 +49,49 @@ async function userRegisterController(req, res) {
     token: token, // Note: Key aur Value ka naam same ho toh sirf 'token,' bhi likh sakte hain (ES6)
   });
 }
-
-
 /**
  * - User Login controller
  * - Post /api/auth/login
  */
-
 async function  userLoginController(req,res){
   const {email,password} = req.body
 
-  const user = await userModel.findOne({email})
+  const user = await userModel.findOne({email}).select("+password")
 
   if(!user){// if user not found
     return res.status(401).json({ // unaothorized // login karte waqt galat email password
       "message":"Email or Password INVALID"
     })
   }
+  const isValidPassword = await user.comparePassword(password)
+  
+  if(!isValidPassword){
+    return res.status(401).jason({
+      "message": "Email or Password INVALID"
+    })
+  }
+
+  const token = jwt.sign(
+    {userId: user._id},
+    process.env.jwt_secrate,
+    {expiresIn: "3d"}
+  );
+
+  res.cookie("token",token);
+  res.status(200).json({// login sucessfully thats why 200
+    user: {
+      _id: user._id,
+      email: user.email,
+      name: user.name,      
+    },
+    token
+  })
+
 
 }
 
 // Controller ko object banakar export karna (taaki routes me import ho sake)
 module.exports = {
   userRegisterController,
+  userLoginController,
 };

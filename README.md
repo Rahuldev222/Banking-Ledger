@@ -17,4 +17,4 @@ Express | Authentication | JavaScript | Backend
 
 # Sucess message to user after login 
 ### nodemailer setup | sucessfull bord in message    
-[Guide to setup nodemailer](https://github.com/ankurdotio/Difference-Backend-video/tree/main/026-nodemailer)
+[Guide to setup nodemailer](https://github.com/ankurdotio/Difference-Backend-video/tree/main/026-nodemailer) - click ctrl + Enter to open this link on new page

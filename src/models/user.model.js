@@ -26,7 +26,7 @@ const userScema = new mongoose.Schema(
   },
 )
 // Save se pehle password hash karo
-// password hashed / benifits: if evven database bas hacked then passord not seen hasing not converted into plain text
+// password hashed / benifits: if even database  hacked then password not seen hasing not converted into plain text
 userScema.pre("save", async function () {
   if (!this.isModified("password")) {
     return ;

@@ -14,3 +14,7 @@ Express | Authentication | JavaScript | Backend
 - when we are reating models of the db ./model/usermodels.js at password field we done select false. it never goes password anywhre only other fields of user model can imported not this field
 - findOne({email}).select("+password") * it only hav hash of password * 
 - comare only done throgh "Salting"
+
+# Sucess message to user after login 
+### nodemailer setup | sucessfull bord in message    
+[Guide to setup nodemailer](https://github.com/ankurdotio/Difference-Backend-video/tree/main/026-nodemailer)

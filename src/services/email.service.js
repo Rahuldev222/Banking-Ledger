@@ -54,7 +54,7 @@ ${APP_NAME} Team`;
         <p>Thank you for registering with <b>${APP_NAME}</b>. Your account has been created successfully.</p>
         <p>Best regards,<br> Backend Ledger Team</p>
     `;
-    await sentEmail(userEmail,subject,text,html); // sentEmail called
+    await sentEmail(userEmail,subject,text,html); 
 }
 module.exports = {sendRegistrationEmail};
 // transporter jo hai wo nodemailer se bna hai 

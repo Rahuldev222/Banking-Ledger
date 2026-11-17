@@ -3,6 +3,8 @@
 const { modelNames } = require("mongoose");
 const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
+const emailService = require("../services/email.service")
+
 
 /**
  * Route: POST /api/auth/register
@@ -48,6 +50,8 @@ async function userRegisterController(req, res) {
     },
     token: token, // Note: Key aur Value ka naam same ho toh sirf 'token,' bhi likh sakte hain (ES6)
   });
+
+  await emailService.sendRegistrationEmail(user.email,user.name)
 }
 /**
  * - User Login controller
